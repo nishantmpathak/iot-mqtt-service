@@ -1,0 +1,18 @@
+version: "3.9"
+
+services:
+  postgres:
+    image: postgres:16
+    container_name: device-postgres
+    restart: always
+    environment:
+      POSTGRES_USER: nishant
+      POSTGRES_PASSWORD: password
+      POSTGRES_DB: device_data_service
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
