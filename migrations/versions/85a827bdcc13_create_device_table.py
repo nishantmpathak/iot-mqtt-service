@@ -29,7 +29,7 @@ def upgrade() -> None:
                     location VARCHAR(255),
                     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                 );
-               -- =========================
+                -- =========================
                 -- RAW_MQTT_EVENT
                 -- =========================
                 CREATE TABLE IF NOT EXISTS raw_mqtt_event (
@@ -42,6 +42,22 @@ def upgrade() -> None:
 
                 CREATE INDEX IF NOT EXISTS idx_raw_mqtt_gateway_received
                 ON raw_mqtt_event (gateway_id, received_at DESC);
+                -- =========================
+                -- DEVICE_INFO
+                -- =========================
+                CREATE TABLE IF NOT EXISTS device_info (
+                    id SERIAL PRIMARY KEY,
+                    label VARCHAR(100) NOT NULL,
+                    location VARCHAR(255),
+                    gateway_id INTEGER REFERENCES gateway(id) ON DELETE CASCADE,
+                    no_of_devices INTEGER,
+                    hardware_model VARCHAR(100),
+                    device_no VARCHAR(100),
+                    device_type VARCHAR(50) NOT NULL,
+                    is_active BOOLEAN DEFAULT TRUE,
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                );
                
     """)
 

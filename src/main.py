@@ -7,7 +7,8 @@ from src.mqtt.mqtt_service import MqttService
 from src.repository.raw_mqtt_event_repository import RawMqttEventRepository
 from src.mqtt import mqtt_client
 from src.db.database import Base, engine
-from src.router.gateway_router import router as gateway_router
+from src.router.device_router import device_router as device_router
+from src.router.gateway_router import gateway_router as gateway_router
 
 app = FastAPI()
 raw_mqtt_event_repository = RawMqttEventRepository()
@@ -23,6 +24,7 @@ async def root():
     "MQTT listener running in background thread."}
 
 app.include_router(gateway_router)
+app.include_router(device_router)
 
 
 @app.on_event("startup")

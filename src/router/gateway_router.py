@@ -5,11 +5,11 @@ from src.models.response.gateway_response import GatewayResponse
 from src.repository.Gateway_repository import GatewayRepo
 
 
-router = APIRouter(prefix='/gateways', tags=['Gateways'])
+gateway_router = APIRouter(prefix='/gateways', tags=['Gateways'])
 
 repo = GatewayRepo()
 
-@router.post("/", response_model=GatewayResponse)
+@gateway_router.post("/", response_model=GatewayResponse)
 def create_gateway(paylaod: GatewayCreateRequest):
     print("request received", GatewayCreateRequest)
     existing = repo.get_by_imei(paylaod.imei)
@@ -21,7 +21,7 @@ def create_gateway(paylaod: GatewayCreateRequest):
     )
     return gateway
 
-@router.get("/{gateway_id}", response_model=GatewayResponse)
+@gateway_router.get("/{gateway_id}", response_model=GatewayResponse)
 def get_gateway_by_id(gateway_id: int):
     gateway = repo.get_by_id(gateway_id)
     if not gateway:
@@ -30,7 +30,7 @@ def get_gateway_by_id(gateway_id: int):
     return gateway
 
 
-@router.get("/imei/{imei}", response_model=GatewayResponse)
+@gateway_router.get("/imei/{imei}", response_model=GatewayResponse)
 def get_gateway_by_imei(imei: str):
     gateway = repo.get_by_imei(imei)
     if not gateway:

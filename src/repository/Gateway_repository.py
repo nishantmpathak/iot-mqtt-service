@@ -1,7 +1,7 @@
 from typing import Optional
 
 from src.db.database import SessionLocal
-from src.models.gateway import Gateway
+from src.models.gateway import DeviceInfo, Gateway
 
 
 class GatewayRepo:
@@ -51,3 +51,24 @@ class GatewayRepo:
     #             db.commit()
     #     finally:
     #         db.close()
+
+class DeviceInforRepo:
+    def __init__(self):
+        self.db = SessionLocal()
+
+    def save(self, device: DeviceInfo) -> DeviceInfo:
+        try:
+            self.db.add(device)
+            self.db.commit()
+            self.db.refresh(device)
+        finally:
+            self.db.close()
+        return device
+    
+    def get_by_id(self, id:str):
+        try:
+            return self.db.query(DeviceInfo).filter(DeviceInfo.id == id).first()
+        finally:
+            self.db.close()
+
+
