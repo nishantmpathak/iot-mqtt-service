@@ -5,7 +5,7 @@ import threading
 from src.mqtt.mqtt_service import MqttService
 
 class MqttClient:
-    def __init__(self, mqtt_service):
+    def __init__(self, mqtt_service: MqttService):
         self.mqtt_service = mqtt_service
         self.BROKER = "localhost"
         self.PORT = 1883
@@ -19,14 +19,9 @@ class MqttClient:
         print("\nMessage received:")
         payload = msg.payload.decode()
         print("Raw:", payload)
-        self.mqtt_service.process_mqtt_received_message(self.TOPIC, payload)
+        self.mqtt_service.save_mqtt_raw_frame(self.TOPIC, payload)
+        self.mqtt_service.process_mqtt_data_in_reading_data(payload)
 
-
-        # try:
-        #     data = json.loads(payload)
-        #     print("Parsed:", data)
-        # except:
-        #     print("Invalid JSON")
 
     def start_mqtt(self):
         client = mqtt.Client()

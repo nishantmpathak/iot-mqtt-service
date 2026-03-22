@@ -49,4 +49,4 @@ MQTT feame storage
 
 
 With this MQTT I am able to save frame in DB
-mosquitto_pub -h localhost -t sensor/data -m '$/210226/141530/Manufacturing_Section/TataMotor_Bhosri/123123213123213213123/28/3/1/Y/1/231.4,230.8,229.9,13.2,12.7,13.0,9150,0.97,50.01/#'
+mosquitto_pub -h localhost -t sensor/data -m '$/2026-03-08/11:50:10/Manufacturing Room/TataMotor_Bhosri/123123213123213213124/28/3/1/Y/1/231.4,230.8,229.9,13.2,12.7,13.0,9150,0.97,50.01/#'

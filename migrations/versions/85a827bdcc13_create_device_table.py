@@ -58,6 +58,17 @@ def upgrade() -> None:
                     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
                 );
+                -- =========================
+                -- DEVICE_READINGS
+                -- =========================
+                CREATE TABLE IF NOT EXISTS device_readings (
+                    id SERIAL PRIMARY KEY,
+                    device_id INTEGER REFERENCES device_info(id) ON DELETE CASCADE,
+                    data JSONB NOT NULL,  -- The new JSONB field
+                    timestamp TIMESTAMP NOT NULL,
+                    quality_flag VARCHAR(50),
+                    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                );
                
     """)
 
